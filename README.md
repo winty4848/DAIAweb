@@ -25,10 +25,10 @@
 <br></p>
 
 
-2018 DAIA HOME PAGE PROJECT
-(Dongguk Artificial Inteligence Association)
-For security, Some codes have been removed.
-Copyright(c) DAIA_HanSeonung All rights reserved.
-Contributor : See the following link
-https://github.com/winty95/DAIAweb
-We modify <a href="https://startbootstrap.com/template-overviews/modern-business/" rel="nofollow">https://startbootstrap.com/template-overviews/modern-business/</a> HTML Source
+<p>2018 DAIA HOME PAGE PROJECT</p>
+<p>(Dongguk Artificial Inteligence Association)</p>
+<p>For security, Some codes have been removed.</p>
+<p>Copyright(c) DAIA_HanSeonung All rights reserved.</p>
+<p>Contributor : See the following link</p>
+<p>https://github.com/winty95/DAIAweb</p>
+<p>We modify <a href="https://startbootstrap.com/template-overviews/modern-business/" rel="nofollow">https://startbootstrap.com/template-overviews/modern-business/</a> HTML Source</p>
