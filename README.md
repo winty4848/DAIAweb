@@ -16,7 +16,7 @@
 <br>
 여현웅 : 웹페이지의 디자인 제안 - 기초적인 HTML 템플릿 틀 제공(<a href="https://startbootstrap.com/template-overviews/modern-business/" rel="nofollow">https://startbootstrap.com/template-overviews/modern-business/</a> 수정), Member 게시판의 modal form으로 세련된 멤버 소개탭 구축 - 기수별 전환탭 구현<br>
 <br>
-김선우 : 로그인/로그아웃, 회원가입 구현(request.session 이용) - 로그인 정보의 활용 설명<br>
+김선우 : 로그인/로그아웃, 회원가입 구현 - 로그인 정보의 활용 설명<br>
 <br>
 김형규, 안지훈 : 관리자 페이지 구현 - 회원가입요청 처리와 회원정보 수정<br>
 <br>
