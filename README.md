@@ -10,7 +10,7 @@
 <p>웹사이트에 사용된 DB는 강수현 회원이 초안을 설계하였으며 이후 개발에서 필요에 따라 약간씩 변경하였습니다.</p>
 <p>AWS 서버에 올리는 작업은 노준형 회원이 할 예정입니다.</p>
 <p>학회 소개글은 기장인 전용진 회원이 작성해주셨습니다.</p>
-<p>이 코드들은 기록용으로, 보안을 위해 삭제된 코드들이 많습니다.
+<p>이 코드들은 기록용으로, 보안을 위해 삭제된 코드들이 많습니다.</p>
 <hr>  
 <p>구체적으로 행한 태스크는 다음과 같습니다.</p>
 <p>한선웅 : 각자의 코드를 통합 - 크게 3가지(게시판, 관리자, 로그인)앱으로 모듈화하고 DB 수정 및 연결, 기능만 구현된 각 페이지에 프론트입히기, 메인페이지에 최신글4개 노출 구현, 앨범게시판에서 앨범게시판에서 사진이 2장이상일경우 1장만 보이도록 구현 with image multiple upload, 게시판에서 파일/이미지 변경 시 예전 이미지 삭제 구현, 멤버 소개탭에서 여러 기수에 해당할 경우 처리 구현, 처리가능한 모든 url에 로그인정보 부여하여 비정상적인 접근 방지, 게시판에 글쓰기/수정/삭제 권한 부여, 그 외 기타 잔업..<br>
@@ -24,11 +24,11 @@
 권성호 : Member게시판 보조, 통합과정에서 상이한 DB 필드 교체작업 수행<br>
 <br></p>
 
-'''
+
 2018 DAIA HOME PAGE PROJECT
 (Dongguk Artificial Inteligence Association)
 For security, Some codes have been removed.
 Copyright(c) DAIA_HanSeonung All rights reserved.
 Contributor : See the following link
 https://github.com/winty95/DAIAweb
-'''
+We modify <a href="https://startbootstrap.com/template-overviews/modern-business/" rel="nofollow">https://startbootstrap.com/template-overviews/modern-business/</a> HTML Source
