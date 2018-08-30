@@ -19,4 +19,4 @@ class DocumentForm(forms.Form):
 class UserInfoForm(forms.ModelForm):
     class Meta:
         model = User
-        fields= 'student_id', 'name', 'major', 'class_field', 'e_mail', 'phone', 'github', 'introduction'
+        fields= 'student_id', 'name', 'major', 'class_field', 'e_mail', 'phone', 'github', 'introduction','image'

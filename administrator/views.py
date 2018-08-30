@@ -61,7 +61,8 @@ def detail(request,user_student_id):
                                 'phone': user.phone,
                                 'major': user.major,
                                 'class_field': user.class_field,
-                                'introduction' : user.introduction
+                                'introduction' : user.introduction,
+                                'image': user.image
                                 })
     context = {
         'user': user,

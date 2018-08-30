@@ -7,12 +7,12 @@ Contributor : See the following link
 https://github.com/winty95/DAIAweb
 '''
 from django import forms
-from .models import Post, ProjectBoard, SeminarBoard, NoticeBoard
+from .models import Gallary, ProjectBoard, SeminarBoard, NoticeBoard
 
-class PostForm(forms.ModelForm):
+class GallaryForm(forms.ModelForm):
     class Meta:
-        model = Post
-        fields = ('title', 'text',)
+        model = Gallary
+        fields = ('title','content')
 
 class ProjectBoardForm(forms.ModelForm):
     class Meta:

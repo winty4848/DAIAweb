@@ -9,26 +9,21 @@ https://github.com/winty95/DAIAweb
 from django.db import models
 from django.utils import timezone
 
-class Post(models.Model):
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    text = models.TextField()
-    created_date = models.DateTimeField(
-            default=timezone.now)
-    published_date = models.DateTimeField(
-            blank=True, null=True)
-    image = models.ImageField(upload_to='%Y/%m/%d/orig', null=True, blank=True)
+class Gallary(models.Model):
+    title = models.CharField(db_column='Gallary_title', max_length=100,default="")
+    content = models.TextField()
+    origin_date = models.DateTimeField(db_column='Origin_date', blank=True, null=True)
+    final_date = models.DateTimeField(db_column='Final_date', blank=True, null=True)
+    writer_name = models.CharField(db_column='Writer_name', max_length=10, blank=True, null=True)
+    writer_id = models.IntegerField(db_column='Writer_id', blank=True, null=True)
 
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
 
-    def delete(self, *args, **kwargs):
-        self.image.delete()
-        super(Post, self).delete(*args, **kwargs)
-
+class Images(models.Model):
+    post = models.ForeignKey(Gallary, default=None)
+    image = models.ImageField(upload_to='gallary/%Y/%m/%d'
+                              , null=True, blank=True)
     def __str__(self):
-        return self.title
+        return self.post.title+" Image"
 
 # 프로젝트 게시판 table
 class ProjectBoard(models.Model):

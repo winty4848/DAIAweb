@@ -23,6 +23,7 @@ class User(models.Model):
     github = models.CharField(db_column='Github', max_length=30, blank=True, null=True)
     introduction = models.CharField(db_column='Introduction', max_length=100, blank=True, null=True)
     sns_address = models.CharField(db_column='SNS_address', max_length=50, blank=True, null=True)
+    image = models.ImageField(upload_to='member', null=True, blank=True)
 
     def __str__(self):
         return self.name

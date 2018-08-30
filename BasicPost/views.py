@@ -7,13 +7,15 @@ Contributor : See the following link
 https://github.com/winty95/DAIAweb
 '''
 from django.utils import timezone
-from BasicPost.models import Post, ProjectBoard, SeminarBoard, NoticeBoard
+from BasicPost.models import Gallary,Images, ProjectBoard, SeminarBoard, NoticeBoard
 from administrator.models import User
 from django.shortcuts import render, get_object_or_404
-from .forms import PostForm, ProjectBoardForm,SeminarBoardForm, NoticeBoardForm
+from .forms import GallaryForm, ProjectBoardForm,SeminarBoardForm, NoticeBoardForm
 from django.shortcuts import redirect
-# for paginator.
+## 페이지네이션 구현
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+## 이미지 여러개 위한것
+from django.forms import modelformset_factory
 
 '''
 del_file, del_image
@@ -41,65 +43,93 @@ def index(request):
     return render(request, 'blog/index.html', {'notices': notices, 'projects': projects, 'seminars':seminars})
 
 def album(request):
-    posts = Post.objects.all().order_by('-published_date')
-    paginator = Paginator(posts, 6)
+    gallaries = Gallary.objects.all().order_by('-origin_date')
+    paginator = Paginator(gallaries, 6)
     page = request.GET.get('page')
 
     try:
-        posts = paginator.page(page)
+        gallaries = paginator.page(page)
     except PageNotAnInteger:
         # If page is not an integer, deliver first page.
-        posts = paginator.page(1)
+        gallaries = paginator.page(1)
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
-        posts = paginator.page(paginator.num_pages)
+        gallaries = paginator.page(paginator.num_pages)
 
     max_index = len(paginator.page_range)
     return render(request, 'blog/album.html', {
-        'posts': posts,
-        'max_index': max_index,
+        'gallaries': gallaries,
+        'max_index' : max_index,
     })
 
-
-
 def album_new(request):
+    ImageFormset = modelformset_factory(Images, fields=('image',), extra=5, max_num=5)
     if request.method == "GET":
-        form = PostForm()
-
+        form = GallaryForm()
+        formset = ImageFormset(queryset=Images.objects.none())
     elif request.method == "POST":
-        form = PostForm(request.POST, request.FILES)
+        form = GallaryForm(request.POST)
+        formset = ImageFormset(request.POST or None, request.FILES or None)
+        if form.is_valid() and formset.is_valid():
+            gallary = form.save(commit=False)
+            gallary.origin_date = timezone.now()
+            gallary.final_date=timezone.now()
+            gallary.save()
 
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            return redirect(post)
-    ctx = {
-        'form': form,
-    }
+            for f in formset:
+                try:
+                    photo=Images(post=gallary, image=f.cleaned_data['image'])
+                    photo.save()
 
-    return render(request, 'blog/album_edit.html', ctx)
+                except Exception as e:
+                    break
+            return redirect('album')
+    return render(request, 'blog/album_edit.html',
+                  {'form': form, 'formset': formset})
 
 
 def album_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, 'blog/album_detail.html', {'post': post})
+    gallary = get_object_or_404(Gallary, pk=pk)
+    return render(request, 'blog/album_detail.html', {'gallary': gallary})
 
 
 
 def album_edit(request, pk):
-    post = get_object_or_404(Post, pk=pk)
+    gallary = get_object_or_404(Gallary, pk=pk)
+    ImageFormset = modelformset_factory(Images, fields=('image',), extra=5, max_num=5)
     if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.save()
-            return redirect('album_detail', pk=post.pk)
+        form = GallaryForm(request.POST or None, instance=gallary)
+        formset = ImageFormset(request.POST or None, request.FILES or None)
+        if form.is_valid() and formset.is_valid():
+            gallary = form.save(commit=False)
+            gallary.final_date = timezone.now()
+            gallary.save()
+            # image check - 프롬프트 창 확인
+            print(formset.cleaned_data)
+            data=Images.objects.filter(post=gallary)
+            for index, f in enumerate(formset):
+                if f.cleaned_data:
+                    if f.cleaned_data['id'] is None:
+                        photo = Images(post=gallary, image=f.cleaned_data['image'])
+                        photo.save()
+                    elif f.cleaned_data['image'] is False:
+                        photo = Images.objects.get(id=request.POST.get('form-' + str(index) + '-id'))
+                        photo.delete()
+                    else:
+                        photo = Images(post=gallary, image=f.cleaned_data['image'])
+                        d=Images.objects.get(id=data[index].id)
+                        d.image=photo.image
+                        d.save()
+            return redirect(album)
     else:
-        form = PostForm(instance=post)
-    return render(request, 'blog/album_edit.html', {'form': form})
+        form = GallaryForm(instance=gallary)
+        formset = ImageFormset(queryset=Images.objects.filter(post=gallary))
+    return render(request, 'blog/album_edit.html', {'gallary': gallary, 'form': form, 'formset': formset})
+
+def album_remove(request, pk):
+    post = get_object_or_404(Gallary, pk=pk)
+    post.delete()
+    return redirect('album')
 
 
 def members(request):
