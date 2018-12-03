@@ -22,8 +22,8 @@
 김형규, 안지훈 : 관리자 페이지 구현 - 회원가입요청 처리와 회원정보 수정<br>
 <br>
 </p>
-테스트서버 구경하기
-<p>https://ac9ea17c0e6f4a0c966f929a04158944.vfs.cloud9.us-west-2.amazonaws.com/ </p>
+완성홈페이지 구경하기
+<p>http://daia.ml/ </p>
 <br>
 
 <p>2018 DAIA HOME PAGE PROJECT</p>
